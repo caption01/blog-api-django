@@ -3,7 +3,8 @@
 ### Description
 ___
 
-this project create for learning rest-api by DRF. 
+this is a personal blog project which user (owner website) can share projects and articles for
+a reader also creat, update or delete a post (projects, article).
 
 following app-relations
 
@@ -13,12 +14,12 @@ ___
 
 ### Application have to
 
-1. API for **Profile** which...
+1. API for **User/Profile** which...
 
-    - [ ] can create(registration) user.
+    - [ ] can login to get a token for autherize for do other actions.
     - [ ] update user profile.
-    - [ ] after **registration** user profile have to auto generate and prefill some data.
-    - [ ] after **delete** user must auto delete.
+    - [ ] after **add User** (on admin page) user **Profile** have to auto generate and prefill some data.
+    - [ ] after **delete** profile, user must auto delete.
 
 2. API for **Project** which...
 
