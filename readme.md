@@ -32,7 +32,7 @@ ___
     - [ ] can create article.
     - [ ] can update article.
     - [ ] can delete article.
-    - [ ] can filter project by title or description.
+    - [ ] can filter article by title or description.
 
 4. API for **Tag** which...
 
