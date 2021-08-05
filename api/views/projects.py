@@ -2,7 +2,7 @@ from rest_framework import viewsets, serializers, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from api.models import Project
+from api.models import Project, Tag
 class ProjectSerializer(serializers.ModelSerializer):
 
     tags = serializers.SerializerMethodField()
@@ -22,7 +22,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         tags = object.tags.all().values_list('name', flat=True).order_by('name')
         return tags
 
-class ProjectsViewset(viewsets.ViewSet):
+class ProjectsViewset(viewsets.ModelViewSet):
     """
     API endpoint for CRUD on Project Model.
     """
@@ -31,7 +31,25 @@ class ProjectsViewset(viewsets.ViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.queryset
-        serializer = self.serializer_class(queryset, many=True)
-        return Response(serializer.data)
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        tags = data['tags']
+
+        tag_list = []
+
+        for tag in tags:
+            tag_obj, created = Tag.objects.get_or_create(name=tag)
+            tag_list.append(tag_obj)
+
+        project = Project.objects.create(
+            title=data['title'],
+            description=data['description'],
+            link_url=data['link_url'],
+        )
+
+        project.tags.set(tag_list)
+        project.save()
+
+        serializer = ProjectSerializer(project, many=False)
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
