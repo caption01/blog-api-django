@@ -16,7 +16,7 @@ ___
 
 1. API for **User/Profile** which...
 
-    - [ ] can login to get a token for autherize for do other actions.
+    - [x] can login to get a token for autherize for do other actions.
     - [x] update user profile.
     - [x] after **add User** (on admin page) user **Profile** have to auto generate and prefill some data.
     - [x] after **delete** profile, user must auto delete.
