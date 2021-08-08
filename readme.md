@@ -32,11 +32,11 @@ ___
 
 3. API for **Article** which...
 
-    - [ ] can create a article.
-    - [ ] can update a article.
-    - [ ] can delete a article.
-    - [ ] can get all an articles.
-    - [ ] can get an article by id.
+    - [x] can create a article.
+    - [x] can update a article.
+    - [x] can delete a article.
+    - [x] can get all an articles.
+    - [x] can get an article by id.
     - [x] can search articles by title or description.
 
 4. API for **Tag** which...
