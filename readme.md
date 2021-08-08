@@ -23,12 +23,12 @@ ___
 
 2. API for **Project** which...
 
-    - [ ] can create a project.
-    - [ ] can update a project.
-    - [ ] can delete a project.
-    - [ ] can get all a projects.
-    - [ ] can get a project by id.
-    - [ ] can filter projects by title or tag.
+    - [x] can create a project.
+    - [x] can update a project.
+    - [x] can delete a project.
+    - [x] can get all a projects.
+    - [x] can get a project by id.
+    - [x] can search projects by title or tag.
 
 3. API for **Article** which...
 
@@ -37,9 +37,9 @@ ___
     - [ ] can delete a article.
     - [ ] can get all an articles.
     - [ ] can get an article by id.
-    - [ ] can filter articles by title or description.
+    - [x] can search articles by title or description.
 
 4. API for **Tag** which...
 
-    - [ ] can create a tag and **must check** if a tag is existing should not create new one.
+    - [x] can create a tag and **must check** if a tag is existing should not create new one.
     - [ ] can delete a tag.
