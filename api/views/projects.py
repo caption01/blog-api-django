@@ -1,10 +1,11 @@
-import re
-from rest_framework import viewsets, serializers, status
+from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Q
+from rest_framework import viewsets, serializers, status, filters
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_access_policy import AccessPolicy
 
-from api.models import Project, Tag
+from api.models import Project, Tag, Profile
 
 class ProjectsAccessPolicy(AccessPolicy):
     statements = [
@@ -54,6 +55,12 @@ class ProjectsViewset(viewsets.ModelViewSet):
     queryset = Project.objects.all().order_by('-created')
     serializer_class = ProjectSerializer
     permission_classes = (ProjectsAccessPolicy,)
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    # filterset_fields = {
+    #     'title': ["exact"],
+    #     'tags': ["exact", 'tags__name']
+    # }
+    search_fields = ['title', 'tags__name']
 
     def update_or_create_tags(self, tags):
         tag_list = []
@@ -68,10 +75,13 @@ class ProjectsViewset(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data
         tags = data.get('tags', None)
+        user = request.user
 
+        profile = Profile.objects.get(user=user)
         tag_list = self.update_or_create_tags(tags)
 
         project = Project.objects.create(
+            owner=profile,
             title=data['title'],
             description=data['description'],
             link_url=data['link_url'],
@@ -93,13 +103,11 @@ class ProjectsViewset(viewsets.ModelViewSet):
 
         tag_list = self.update_or_create_tags(tags)
 
-        project = Project.objects.create(
-            title=data['title'],
-            description=data['description'],
-            link_url=data['link_url'],
-        )
-
+        project.title = data['title']
+        project.description = data['description']
+        project.link_url = data['link_url']
         project.tags.set(tag_list)
+        
         project.save()
         serializer = self.serializer_class(project, many=False)
 
