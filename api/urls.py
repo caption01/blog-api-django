@@ -5,9 +5,11 @@ from rest_framework import routers
 from .views.login import LoginView
 from .views.profile import ProfileView
 from .views.projects import ProjectsViewset
+from .views.article import ArticleViewset
 
 router = routers.DefaultRouter()
 router.register('projects', ProjectsViewset)
+router.register('articles', ArticleViewset)
 
 urlpatterns = [
     url(r'login/?', LoginView.as_view()),
